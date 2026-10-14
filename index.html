@@ -5,24 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <title>Exercise · Monthly tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="config.js?v=3"></script>
-  <script defer src="app.js?v=3"></script>
+  <script defer src="config.js?v=4"></script>
+  <script defer src="app.js?v=4"></script>
 </head>
 <body>
   <main class="widget" id="widget">
     <section class="login" id="login" hidden>
       <div class="brand-mark" aria-hidden="true">✓</div>
       <h1>Exercise tracker</h1>
-      <p>Sign in with an email link. Your workout days will sync across devices.</p>
-      <form id="email-form">
+      <p>Sign in to sync your workout days across devices.</p>
+      <form id="password-form">
         <label for="email">Email address</label>
-        <div class="form-row">
-          <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required />
-          <button type="submit" id="send-code">Send sign-in link</button>
-        </div>
+        <input id="email" class="full-input" type="email" placeholder="you@example.com" autocomplete="email" required />
+        <label for="password">Password</label>
+        <input id="password" class="full-input" type="password" placeholder="Your password" autocomplete="current-password" required />
+        <button type="submit" class="primary-button" id="sign-in">Sign in</button>
       </form>
+      <details class="login-alternative">
+        <summary>Use an email sign-in link instead</summary>
+        <form id="email-form">
+          <label for="link-email">Email address</label>
+          <div class="form-row">
+            <input id="link-email" type="email" placeholder="you@example.com" autocomplete="email" required />
+            <button type="submit" id="send-code">Send link</button>
+          </div>
+        </form>
+      </details>
       <div class="message" id="login-message" role="status" aria-live="polite"></div>
     </section>
 
@@ -50,6 +60,14 @@
             <button type="button" data-theme="auto">Auto</button>
           </div>
         </div>
+        <form id="set-password-form" class="set-password-form">
+          <label for="new-password" class="settings-label">Set or change your password</label>
+          <div class="form-row">
+            <input id="new-password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required />
+            <button type="submit" id="save-password">Save password</button>
+          </div>
+          <p class="password-hint">Use this password to sign in directly inside Notion. Choose a unique password.</p>
+        </form>
         <div class="settings-row account-row" id="account-row">
           <span class="account-email" id="account-email"></span>
           <button type="button" class="text-button" id="logout">Sign out</button>
