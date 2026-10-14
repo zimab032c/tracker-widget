@@ -1,3 +1,4 @@
+
 (() => {
   'use strict';
 
@@ -65,7 +66,6 @@
     $('tracker').hidden = true;
     $('login').hidden = false;
     $('email-form').hidden = false;
-    $('code-form').hidden = true;
     $('login-message').textContent = '';
   }
   function applyAccent() {
@@ -232,9 +232,6 @@
       if (error) { notify(error.message, true); return; }
       monthRequest++;
       displayLogin();
-    });
-    $('change-email').addEventListener('click', () => {
-      pendingEmail = ''; $('email-form').hidden = false; $('code-form').hidden = true; notify('');
     });
     $('email-form').addEventListener('submit', async event => {
       event.preventDefault();
