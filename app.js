@@ -1,4 +1,3 @@
-
 (() => {
   'use strict';
 
@@ -233,19 +232,58 @@
       monthRequest++;
       displayLogin();
     });
+    $('password-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!db) return;
+      const email = $('email').value.trim().toLowerCase();
+      const password = $('password').value;
+      const button = $('sign-in');
+      button.disabled = true;
+      button.textContent = 'Signing in…';
+      try {
+        const { data, error } = await db.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        if (!data.user) throw new Error('Sign-in did not return an account.');
+        $('password').value = '';
+        await showLoggedIn(data.user);
+      } catch (err) {
+        notify(`Sign-in failed: ${err.message || err}`, true);
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Sign in';
+      }
+    });
+    $('set-password-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!db || !user) return;
+      const value = $('new-password').value;
+      if (value.length < 8) { notify('Choose a password with at least 8 characters.', true); return; }
+      const button = $('save-password');
+      button.disabled = true;
+      button.textContent = 'Saving…';
+      try {
+        const { error } = await db.auth.updateUser({ password: value });
+        if (error) throw error;
+        $('new-password').value = '';
+        notify('Password saved. You can now sign in inside Notion.');
+      } catch (err) {
+        notify(`Could not save password: ${err.message || err}`, true);
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Save password';
+      }
+    });
     $('email-form').addEventListener('submit', async event => {
       event.preventDefault();
       if (!db) return;
-      pendingEmail = $('email').value.trim().toLowerCase();
+      pendingEmail = $('link-email').value.trim().toLowerCase();
       const button = $('send-code'); button.disabled = true; button.textContent = 'Sending…';
-      // Default Supabase free-tier templates send a magic link, not a numeric code.
-      // Redirect back to the hosted widget once the email link is clicked.
       const redirectUrl = window.location.origin + window.location.pathname;
       const { error } = await db.auth.signInWithOtp({
         email: pendingEmail,
-        options: { shouldCreateUser: true, emailRedirectTo: redirectUrl }
+        options: { shouldCreateUser: false, emailRedirectTo: redirectUrl }
       });
-      button.disabled = false; button.textContent = 'Send sign-in link';
+      button.disabled = false; button.textContent = 'Send link';
       if (error) { notify(error.message, true); return; }
       notify(`Check ${pendingEmail} for your sign-in link. Open it in this browser to finish signing in.`);
     });
