@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Exercise · Monthly tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main class="widget" id="widget">
+    <section class="login" id="login" hidden>
+      <div class="brand-mark" aria-hidden="true">✓</div>
+      <h1>Exercise tracker</h1>
+      <p>Sign in with an email link. Your workout days will sync across devices.</p>
+      <form id="email-form">
+        <label for="email">Email address</label>
+        <div class="form-row">
+          <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+          <button type="submit" id="send-code">Send sign-in link</button>
+        </div>
+      </form>
+      <div class="message" id="login-message" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="tracker" id="tracker" hidden>
+      <header class="header">
+        <div>
+          <div class="eyebrow"><span class="indicator"></span><span id="sync-label">Exercise habit</span></div>
+          <h1>Move a little, often.</h1>
+          <p>One circle for every day you showed up.</p>
+        </div>
+        <button type="button" id="settings-toggle" class="icon-button" aria-label="Appearance and account settings" title="Customize">⚙</button>
+      </header>
+
+      <div class="settings" id="settings" hidden>
+        <div class="settings-row">
+          <span class="settings-label">Circle color</span>
+          <div class="swatches" id="swatches" aria-label="Accent color options"></div>
+          <label class="custom-color" title="Choose a custom color"><span>Custom</span><input type="color" id="custom-color" value="#719e88" aria-label="Custom circle color" /></label>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">Appearance</span>
+          <div class="segmented" role="group" aria-label="Appearance">
+            <button type="button" data-theme="light">Light</button>
+            <button type="button" data-theme="dark">Dark</button>
+            <button type="button" data-theme="auto">Auto</button>
+          </div>
+        </div>
+        <div class="settings-row account-row" id="account-row">
+          <span class="account-email" id="account-email"></span>
+          <button type="button" class="text-button" id="logout">Sign out</button>
+        </div>
+      </div>
+
+      <div class="calendar-header">
+        <div>
+          <div id="month-label" class="month-label" aria-live="polite"></div>
+          <div id="month-subtitle" class="month-subtitle">Tap a circle to track your exercise</div>
+        </div>
+        <div class="month-nav">
+          <button type="button" id="prev-month" class="nav-button" aria-label="Previous month">‹</button>
+          <button type="button" id="current-month" class="today-button">Today</button>
+          <button type="button" id="next-month" class="nav-button" aria-label="Next month">›</button>
+        </div>
+      </div>
+      <div class="weekdays" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+      <div id="calendar" class="calendar" role="group" aria-label="Exercise days"></div>
+
+      <footer class="footer">
+        <div class="stat"><span id="completed-count">0</span><span class="slash">/</span><span id="possible-count">0</span><span class="stat-caption">days completed</span></div>
+        <div class="progress-track" aria-label="Monthly exercise progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div class="progress-fill" id="progress-fill"></div></div>
+      </footer>
+      <p id="tracker-message" class="message tracker-message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>
