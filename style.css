@@ -9,3 +9,14 @@
 .widget.theme-dark{color-scheme:dark;--text:#e7eeeb;--muted:#a0aba6;--background:#1c2220;--surface:#262e2a;--border:#36413b;--ring:#3a4540;--future:#69716c;--shadow:none}
 @media(prefers-color-scheme:dark){.widget.theme-auto{color-scheme:dark;--text:#e7eeeb;--muted:#a0aba6;--background:#1c2220;--surface:#262e2a;--border:#36413b;--ring:#3a4540;--future:#69716c;--shadow:none}}
 @media(max-width:370px){body{padding:3px}.widget{padding:18px 14px;border-radius:14px}.day{width:33px;height:33px;font-size:11px}.day-container{min-height:35px}.weekdays,.calendar{column-gap:3px}.stat-caption{display:none}.header{margin-bottom:23px}}
+
+/* Password login and account settings */
+.login .full-input{width:100%;border:1px solid var(--border);background:var(--surface);padding:11px 12px;border-radius:9px;color:var(--text);font-size:12px}
+.login .primary-button{width:100%;margin-top:15px;background:var(--accent);color:var(--accent-text);border:0;border-radius:9px;padding:11px 13px;font-size:12px;font-weight:650}
+.login-alternative{margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.login-alternative summary{cursor:pointer;color:var(--muted);font-size:12px}
+.set-password-form{border-top:1px solid var(--border);padding:12px 0 5px;margin-top:8px}
+.set-password-form .settings-label{display:block;margin-bottom:8px}
+.set-password-form .form-row input{flex:1;min-width:0;border:1px solid var(--border);background:var(--background);border-radius:8px;color:var(--text);font-size:11px;padding:9px}
+.set-password-form .form-row button{background:var(--accent);color:var(--accent-text);border:0;border-radius:8px;padding:8px 10px;font-size:11px;white-space:nowrap}
+.password-hint{color:var(--muted);font-size:10px;line-height:1.45;margin:7px 0 0}
